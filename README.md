@@ -1,27 +1,90 @@
-# Ngedit
+# Inline Edit Directive
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.
+Inline Edit Directive
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Inline edit available via directive. Supports inputs(text, tel, email, number), textarea and select. Compatible with Angular2+
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+*npm i inline-edit-directive*
 
-## Build
+## Basic Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### 1. Add *InlineEditModule* import to your *@NgModule* like example below
+``` typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { MyTestApp } from './my-test-app';
+import { InlineEditModule } from 'date-picker-directive';
 
-## Running unit tests
+@NgModule({
+    imports:      [ BrowserModule, InlineEditModule ],
+    declarations: [ MyTestApp ],
+    bootstrap:    [ MyTestApp ]
+})
+export class MyTestAppModule {}
+```
+### 2. Add the directive and additional options to your HTML element
+``` html
+<span i-edit type="text" placeholder="Input Date" [(ngModel)]="myVar" (onsave)="itemSaved($event)" ></span>
+```
+### 3. Provide method for date selected event
+``` typescript
+import { Component } from '@angular/core';
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  myVar = 'sample text';
+  dateval: string = null;
+  itemSaved(val) {
+    // do something
+  }
+}
+```
+*NB* If ngModel is used with 2 way binding *[(ngModel)]*, the variable is automatically updated.
 
-## Running end-to-end tests
+## Attributes
+The following options are available for the directive
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+| Option        | Optional    | Type  | Description |
+| ------------- | ------------- | ----- | ----- |
+| type | required | string | Tells the directive what input type to use. Types include: *text, number, email, tel, select, textarea* |
+| ngModel | optional | any | Model with data or to be updated. Can be used with angular binding techniques|
+| placeholder | optional | string | Temporary message shown in input |
+| customclass | optional | string | Apply your custom class or bootstrap classes to the input elements |
+| options | required if *type="select" | array | Sends list of items to be used in select list. |
+| valuefield | optional | string | Used with select list if a list of objects is used to determine which property to display |
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Events
+
+### beforesave
+
+This event is triggered when the element is clicked and before editing starts. Can be used to do checks or validation before changes are made. The initial data sent via ngModel is returned in the event.
+
+### onsave
+
+This event is triggered when editing is complete via:enter key pressed, item selected in select list, or save button pressed on textarea. The changes made/value selected is returned in this event. If 2 way binding is used on the ngModel *[(ngModel)]* the variable would already be updated.
+
+## Author
+* Author: Ricardo Lynch
+
+## License
+This project is licensed under the MIT License 
+
+# Keywords
+* inline edit
+* inline
+* x edit
+* angular4
+* typescript
+* directive
+* ngx inline
+* ng
+* ng4

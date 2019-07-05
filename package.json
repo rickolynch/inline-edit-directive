@@ -1,8 +1,31 @@
 {
-  "name": "inline-edit",
-  "version": "0.0.1",
+  "name": "inline-edit-directive",
+  "version": "1.0.1",
   "peerDependencies": {
     "@angular/common": "^7.1.0",
     "@angular/core": "^7.1.0"
+  },
+  "license": "MIT",
+  "description": "Inline edit available via directive. Supports inputs(text, tel, email, number), textarea and select. Compatible with Angular2+",
+  "private": false,
+  "keywords": [
+    "inline edit",
+    "inline",
+    "x edit",
+    "angular4",
+    "typescript",
+    "directive",
+    "ngx inline",
+    "ng",
+    "ng4"
+  ],
+  "author": "Ricardo Lynch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rickolynch/inline-edit-directive.git"
+  },
+  "homepage": "https://github.com/rickolynch/inline-edit-directive",
+  "bugs": {
+    "url": "https://github.com/rickolynch/inline-edit-directive/issues"
   }
 }
