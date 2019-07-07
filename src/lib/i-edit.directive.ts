@@ -1,4 +1,5 @@
-import { AfterViewInit,
+import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
@@ -8,13 +9,18 @@ import { AfterViewInit,
   HostListener,
   Renderer2,
   ViewChild,
-  OnInit } from '@angular/core';
+  OnInit,
+  ViewContainerRef,
+  ComponentFactoryResolver
+} from "@angular/core";
+import { InputComponent } from "./input.component";
+import { TextareaComponent } from "./textarea.component";
+import { SelectComponent } from "./select.component";
 
 @Directive({
-  selector: '[i-edit]'
+  selector: "[i-edit]"
 })
-export class IEditDirective {
-
+export class IEditDirective implements OnInit {
   @Input() step?: number;
   @Input() placeholder?: string;
   @Input() type?: string;
@@ -72,10 +78,10 @@ export class IEditDirective {
     this.renderer.setStyle(this.viewContainer.element.nativeElement.parentElement, "position", "relative");
     this.renderer.setStyle(this.viewContainer.element.nativeElement, "display", "none");
     this.viewContainer.clear();
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextComponent);
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(InputComponent);
     this.componentRef = this.viewContainer.createComponent(componentFactory);
     this.setPosition();
-    this.componentRef.instance.customClass = this.iclass;
+    this.componentRef.instance.customClass = this.customclass;
     this.componentRef.instance.text = this.ngModel;
     this.componentRef.instance.type = this.type;
     this.componentRef.instance.step = this.step;
@@ -96,7 +102,7 @@ export class IEditDirective {
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(TextareaComponent);
     this.componentRef = this.viewContainer.createComponent(componentFactory);
     this.setPosition();
-    this.componentRef.instance.customClass = this.iclass;
+    this.componentRef.instance.customClass = this.customclass;
     this.componentRef.instance.text = this.ngModel;
     this.componentRef.instance.type = this.type;
     this.componentRef.instance.save.subscribe(val => {
@@ -116,7 +122,7 @@ export class IEditDirective {
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(SelectComponent);
     this.componentRef = this.viewContainer.createComponent(componentFactory);
     this.setPosition();
-    this.componentRef.instance.customClass = this.iclass;
+    this.componentRef.instance.customClass = this.customclass;
     this.componentRef.instance.text = this.ngModel;
     this.componentRef.instance.options = this.options;
     this.componentRef.instance.valuefield = this.valuefield;
@@ -163,5 +169,4 @@ export class IEditDirective {
       }
     }
   }
-
 }
